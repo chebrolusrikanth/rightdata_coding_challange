@@ -1,0 +1,100 @@
+{
+  "info": {
+    "_postman_id": "cdbd79e9-8726-42b1-a6e3-18834a536cf9",
+    "name": "RightData",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37171892"
+  },
+  "item": [
+    {
+      "name": "Insert into dataset table",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fqn\": \"snowflake.bi_team.silver.orders_clean\",\r\n  \"source_type\": \"MYSQL\",\r\n  \"columns\": [\r\n    { \"name\": \"order_id\", \"type\": \"int\" },\r\n    { \"name\": \"customer_id\", \"type\": \"int\" },\r\n    { \"name\": \"order_date\", \"type\": \"date\" },\r\n    { \"name\": \"total_amount\", \"type\": \"float\" }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/datasets",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "datasets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Insert into lineage table",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"upstream_fqn\": \"snowflake.bi_team.bronze.orders_raw\",\r\n  \"downstream_fqn\": \"snowflake.bi_team.silver.orders_clean\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/lineage",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "lineage"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search api",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/search?q=order",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "order"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
