@@ -1,0 +1,38 @@
+# Metadata Service
+
+A lightweight metadata management service similar to modern data governance platforms.
+
+## Features
+- Dataset registration using fully qualified name (FQN)
+- Dataset-to-dataset lineage tracking
+- Cycle detection in lineage graph
+- Priority-based search across datasets
+- REST APIs built with FastAPI
+
+## Tech Stack
+- FastAPI
+- MySQL
+- SQLAlchemy
+- Alembic
+- Docker & Docker Compose
+
+## Architecture Decisions
+- Dataset FQN used as unique identifier
+- Lineage modeled as directed graph
+- Cycle detection implemented using DFS
+- Search results ranked by relevance priority
+
+## Search Priority
+1. Table name
+2. Column name
+3. Schema name
+4. Database name
+
+## Assumptions & Limitations
+- Dataset-level lineage only
+- Case-insensitive search
+- No authentication (out of scope)
+
+## Running Locally (Without Docker)
+```bash
+uvicorn main:app --reload
